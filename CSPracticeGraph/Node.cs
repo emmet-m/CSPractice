@@ -37,8 +37,7 @@ namespace CSPracticeGraph
             catch (ArgumentException)
             {
                 // Edge already existed, just bopp it on the end of the list
-                this.connections.TryGetValue(pair, out conns);
-                conns.Add(weight);
+                this.connections[pair].Add(weight);
             }
         }
 
@@ -76,20 +75,36 @@ namespace CSPracticeGraph
 
         /*
          * Returns the weight between this vertex and another vertex.
-         * Throws an exception if the connection is not found!
+         * Throws ArgumentException if the connection is not found!
          */
         public List<E> WeightsBetween(V pair)
         {
-            List<E> toRet;
-            if (this.connections.TryGetValue(pair, out toRet))
+            // Throws Argument
+            try
             {
-                return toRet;
+                return this.connections[pair];
             }
-
-            // Not found - Exception
-            throw new ArgumentException("Connection not found");
+            catch (KeyNotFoundException)
+            {
+                throw new ArgumentException("Pair not found.");
+            }
         }
 
+        /*
+         * Returns a list of Verteces that are connected to this Node.
+         */
+        public List<V> Connections() {
+            List<V> l = new List<V>;
+            foreach (KeyValuePair<V,List<E>> i in this.connections) {
+                l.Add(i.Key);
+            }
+            return l;
+        }
+
+        /*
+         * Returns true  if the node is connected to the given vertex.
+         * false otherwise.
+         */
         public bool ConnectedTo(V pair) {
             return this.connections.ContainsKey(pair);
         }

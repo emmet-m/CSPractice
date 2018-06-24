@@ -62,12 +62,13 @@ namespace UnitTesting
             {
                 n1.WeightsBetween(1);
             }
-            catch (ArgumentException) {
+            catch (ArgumentException)
+            {
                 // This should be executed
                 b = true;
             }
 
-            // Check that doesn't exist, and cannot remove
+            // Check that weight beteen 1 didn't exist, and cannot remove
             Assert.IsTrue(b);
             Assert.IsFalse(n1.RemoveEdge(1, 100));
 
