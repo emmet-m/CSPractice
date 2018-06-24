@@ -1,1 +1,7 @@
 .vs
+TestResults
+packages
+CSPracticeGraph/bin
+CSPracticeGraph/obj
+UnitTesting/bin
+UnitTesting/obj

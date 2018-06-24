@@ -1,2 +1,0 @@
-C:\Users\Emmet\source\repos\CSPractice\CSPractice\obj\Debug\CSPractice.csprojAssemblyReference.cache
-C:\Users\Emmet\source\repos\CSPractice\CSPractice\obj\Debug\CSPractice.csproj.CoreCompileInputs.cache
