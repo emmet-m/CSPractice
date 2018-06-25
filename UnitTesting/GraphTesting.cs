@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CSPracticeGraph;
 
-namespace UnitTestProject2
+namespace UnitTesting
 {
     [TestClass]
     public class GraphTesting

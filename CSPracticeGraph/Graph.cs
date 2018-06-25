@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,14 @@ namespace CSPracticeGraph
      *
      * Vertices and weights can be any Comparable type. 
      */
-    public class Graph<V, E> where E : IComparable
-                      where V : IComparable
+    public class Graph<V, E> 
+                    where E : IComparable
+                    where V : IComparable
     {
         /*
          * Dictionary that maps a vertex to it's corresponding Node container 
          */
-        private Dictionary<V,Node<V, E>> connections;
+        protected Dictionary<V,Node<V, E>> connections;
 
         public Graph() {
             this.connections = new Dictionary<V, Node<V, E>>();
@@ -136,32 +138,13 @@ namespace CSPracticeGraph
             return new List<V>(this.connections.Keys);
         }
 
-        /* ========== Graph Tools ========== */
-
-        public List<V> ShortestPathBetween(V src, V dst) {
-            throw new NotImplementedException();
-
-            return new List<V>();
-        }
-
-        public bool ExistsCycleFrom(V v1) {
-            throw new NotImplementedException();
-
-            return false;
-        }
-
-        public Graph<V, E> MinimumSpanningTree() {
-            throw new NotImplementedException();
-
-            return new Graph<V, E>();
-        }
 
         /* ===== Bookkeeping functions, helpers ====== */
 
         /*
          * Throws an exception if vertex doesn't exist in our graph. 
          */
-        private void CheckVertexExists(V vertex) {
+        protected void CheckVertexExists(V vertex) {
             // Check both verteces exist
             if (!(this.connections.ContainsKey(vertex)))
                 throw new ArgumentException("Graph does not contain vertex " + vertex.ToString());
