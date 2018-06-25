@@ -64,20 +64,8 @@ namespace UnitTesting
             Assert.IsTrue(n1.WeightsBetween(1).Count == 1);
             Assert.IsTrue(n1.RemoveEdge(1, 100));
 
-            // vertex 0 should have no connections to vertex 1
-            bool b = false;
-            try
-            {
-                n1.WeightsBetween(1);
-            }
-            catch (ArgumentException)
-            {
-                // This should be executed
-                b = true;
-            }
-
-            // Check that weight beteen 1 didn't exist, and cannot remove
-            Assert.IsTrue(b);
+            Assert.AreEqual(0, n1.WeightsBetween(1).Count);
+            // Check that we cannot remove the edge between 0 and 1
             Assert.IsFalse(n1.RemoveEdge(1, 100));
 
         }

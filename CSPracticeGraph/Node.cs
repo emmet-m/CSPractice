@@ -94,7 +94,7 @@ namespace CSPracticeGraph
             }
             catch (KeyNotFoundException)
             {
-                throw new ArgumentException("No connection between vertex " + this.vertex.ToString() + "And vertex " + pair.ToString());
+                return new List<E>(); // just an empty list
             }
         }
 

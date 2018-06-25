@@ -14,7 +14,7 @@ namespace CSPracticeGraph
      *
      * Vertices and weights can be any Comparable type. 
      */
-    class Graph<V, E> where E : IComparable
+    public class Graph<V, E> where E : IComparable
                       where V : IComparable
     {
         /*
@@ -52,6 +52,8 @@ namespace CSPracticeGraph
                 this.connections[conn].RemoveAllEdges(vertex);
                 n.RemoveAllEdges(conn);
             }
+
+            this.connections.Remove(vertex);
         }
 
         /*
@@ -83,7 +85,7 @@ namespace CSPracticeGraph
          * Returns true if v1 is connected to v2, false otherwise.
          * Throws an ArgumentException if either of the verteces doesn't exist.
          */
-        public bool IsConnectedTo(V v1, V v2) {
+        public bool IsNeighbourOf(V v1, V v2) {
             CheckVertexExists(v1);
             CheckVertexExists(v2);
 
@@ -106,7 +108,7 @@ namespace CSPracticeGraph
          * Returns a list of all vertices connected to the given vertex. 
          * Throws ArgumentException if the given vertex doesn't exist in the graph.
          */
-        public List<V> ConnectionsOf(V vertex) {
+        public List<V> NeighboursOf(V vertex) {
             CheckVertexExists(vertex);
             return this.connections[vertex].Connections();
         }
@@ -129,10 +131,30 @@ namespace CSPracticeGraph
         /*
          * Returns a list of all vertices in the graph. 
          */
-        public List<V> AllVertices() {
+        public List<V> Vertices() {
+
             return new List<V>(this.connections.Keys);
         }
 
+        /* ========== Graph Tools ========== */
+
+        public List<V> ShortestPathBetween(V src, V dst) {
+            throw new NotImplementedException();
+
+            return new List<V>();
+        }
+
+        public bool ExistsCycleFrom(V v1) {
+            throw new NotImplementedException();
+
+            return false;
+        }
+
+        public Graph<V, E> MinimumSpanningTree() {
+            throw new NotImplementedException();
+
+            return new Graph<V, E>();
+        }
 
         /* ===== Bookkeeping functions, helpers ====== */
 
