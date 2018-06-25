@@ -6,10 +6,18 @@ namespace CSPracticeGraph
 {
     /*
      * Node class
-     * Stores a map of connections between vertices
+     * Stores a map of connections between a vertex.
+     *
+     * Using nodes as opposed to bundling pairs in a graph class allows easily to make
+     * both an undirected and directed graph using the exact same code, as most graph 
+     * queries/operations differ by only a small section of repeated code for directed/undirected.
+     *
+     * Bundling this information in a node is a nice abstraction! :)
+     * 
+     * Edges <E> must be comparable, but Vertices need not be.
+     *
      */
-    public class Node <V,E> where V : IComparable
-                            where E : IComparable 
+    public class Node <V,E> where E : IComparable 
     {
         private Dictionary<V, List<E>> connections;
         private V vertex;
@@ -86,7 +94,7 @@ namespace CSPracticeGraph
             }
             catch (KeyNotFoundException)
             {
-                throw new ArgumentException("Pair not found.");
+                throw new ArgumentException("No connection between vertex " + this.vertex.ToString() + "And vertex " + pair.ToString());
             }
         }
 
@@ -94,11 +102,7 @@ namespace CSPracticeGraph
          * Returns a list of Verteces that are connected to this Node.
          */
         public List<V> Connections() {
-            List<V> l = new List<V>;
-            foreach (KeyValuePair<V,List<E>> i in this.connections) {
-                l.Add(i.Key);
-            }
-            return l;
+            return new List<V>(this.connections.Keys);
         }
 
         /*

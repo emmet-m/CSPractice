@@ -33,6 +33,14 @@ namespace UnitTesting
             Assert.IsTrue(n1.RemoveEdge(1, 100));
 
             Assert.IsFalse(n1.ConnectedTo(1));
+
+            // Should have 2 connected vertices (as we just removed 1)
+            Assert.AreEqual(n1.Connections().Count, 2);
+
+            // The connections should be 2 and 3
+            Assert.IsFalse(n1.Connections().Contains(1));
+            Assert.IsTrue(n1.Connections().Contains(2));
+            Assert.IsTrue(n1.Connections().Contains(3));
         }
 
 
