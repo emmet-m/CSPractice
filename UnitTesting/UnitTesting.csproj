@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NodeTesting.cs" />
+    <Compile Include="PriorityQueueTesting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphTesting.cs" />
     <Compile Include="GraphExtensionsTesting.cs" />
