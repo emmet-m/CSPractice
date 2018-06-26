@@ -53,5 +53,34 @@ namespace UnitTesting
                 prev = next;
             }
         }
+
+        [TestMethod]
+        public void PriorityQueueUpdateAndContains()
+        {
+            PriorityQueue<int, int> pq = new PriorityQueue<int, int>();
+
+            // Insert 4 numbers
+            pq.Enqueue(0, 4);
+            pq.Enqueue(1, 1);
+            pq.Enqueue(2, 2);
+            pq.Enqueue(3, 3);
+
+            // They should all be in the queue
+            Assert.IsTrue(pq.Contains(0));
+            Assert.IsTrue(pq.Contains(1));
+            Assert.IsTrue(pq.Contains(2));
+            Assert.IsTrue(pq.Contains(3));
+
+            // Let's update one of them...
+            pq.Update(0, 0);
+
+            // 0 should now be first
+            Assert.AreEqual(0, pq.Dequeue());
+            // Rest should be in relative order
+            Assert.AreEqual(1, pq.Dequeue());
+            Assert.AreEqual(2, pq.Dequeue());
+            Assert.AreEqual(3, pq.Dequeue());
+
+        }
     }
 }

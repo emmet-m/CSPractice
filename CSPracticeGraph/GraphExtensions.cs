@@ -30,31 +30,26 @@ namespace CSPracticeGraph
 
             if (src.Equals(dst))
             {
-                // Empty list
+                // Empty list, we're here already
                 return new List<V>();
             }
 
             // Comparing based on edge distance
-            SortedList<V,int> pq = new SortedList<V,int>();
+            PriorityQueue<V,int> pq = new PriorityQueue<V,int>();
             HashSet<V> seen = new HashSet<V>(); // seen array
             // Keep track of how we reached any given node
             Dictionary<V, V> prev = new Dictionary<V, V>();
 
-            pq.Add(src,0);
+            pq.Enqueue(src,0);
 
             // We do Dijkstra.
             // While still items in the queue
             while (pq.Count != 0)
             {
-                Console.WriteLine("----");
-                foreach (KeyValuePair<V,int> s in pq)
-                {
-                    Console.Write(s.Key);
-                    Console.Write(" ");
-                    Console.WriteLine(s.Value);
-                }
-                Console.WriteLine("----");
-                V curr = pq.ElementAt(0).Key;
+                // Get first element in queue and it's best weight from src
+                V curr = pq.Peek();
+                int currWeight = pq.WeightOf(curr);
+                pq.Dequeue();
 
                 if (curr.Equals(dst))
                 {
@@ -79,25 +74,28 @@ namespace CSPracticeGraph
                 {
                     // if not seen yet, or have better distance
 
-                    if ((!seen.Contains(neighbour)) &&
-                        (!pq.ContainsKey(neighbour) ||
-                            // Current dist
-                            pq[neighbour] <
-                              // smallest dist from curr to neighbour 
-                              (this.connections[curr].WeightsBetween(neighbour).Min()
-                              // distance from src to curr
-                              + pq[curr]))
-                            )
+                    // Can have an edge to yourself, so skip if we see ourself
+                    if (neighbour.Equals(curr)) continue;
+                    // smallest dist from curr to neighbour + 
+                    // distance from src to curr
+                    int currToNeighbourWeight = this.connections[curr].WeightsBetween(neighbour).Min();
+
+                    if ((!seen.Contains(neighbour)) && 
+                        ((!pq.Contains(neighbour)) || pq.WeightOf(neighbour) > (currToNeighbourWeight + currWeight)))
                     {
 
                         // We now have a new best, lets put it in the queue
-                        pq[neighbour] = this.connections[curr].WeightsBetween(neighbour).Min() + pq[curr];
-
+                        if (pq.Contains(neighbour))
+                        {
+                            pq.Update(neighbour, this.connections[curr].WeightsBetween(neighbour).Min() + currWeight);
+                        }
+                        else {
+                            pq.Enqueue(neighbour, this.connections[curr].WeightsBetween(neighbour).Min() + currWeight);
+                        }
                         // Show that it came from the current node
                         prev[neighbour] = curr;
                     }
                 }
-                pq.Remove(curr);
                 seen.Add(curr);
             }
 

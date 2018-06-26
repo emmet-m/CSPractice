@@ -56,5 +56,63 @@ namespace CSPracticeGraph
             this.elements.RemoveAt(0);
             return toRet.Item1;
         }
+
+        /*
+         * Checks if an element exists in the queue
+         */ 
+        public bool Contains(T key) {
+            foreach (Tuple<T,E> t in this.elements) {
+                if (t.Item1.Equals(key))
+                    return true;
+            }
+            return false;
+        }
+
+        /*
+         * Updates the value of a given element in the queue.
+         * 
+         * Throws an ArgumentException if the provided key doesn't exist.
+         */
+        public void Update(T key, E value) {
+            // Find key
+            int where = 0;
+            foreach (Tuple<T, E> t in this.elements) {
+                if (t.Item1.Equals(key))
+                    break;
+                where++;
+            }
+            // We never broke from the loop
+            if (where == this.elements.Count)
+                throw new ArgumentException("Key " + key.ToString() + " does not exist in PriorityQueue");
+
+            // Put it back in take it out and put it back in!
+            this.elements.RemoveAt(where);
+            this.Enqueue(key, value);
+        }
+
+        /*
+         * Get's the associated weight of a key 
+         */
+        public E WeightOf(T key) {
+            foreach (Tuple<T, E> t in this.elements) {
+                if (t.Item1.Equals(key))
+                    return t.Item2;
+            }
+
+            throw new ArgumentException("Key " + key.ToString() + " does not exist in PriorityQueue");
+        }
+
+        /*
+         * Returns without removing the next element in the queue
+         */ 
+        public T Peek() {
+            return this.elements.ElementAt(0).Item1;
+        }
+
+        public void Show() {
+            foreach (Tuple<T,E> t in this.elements){
+                Console.WriteLine(t.Item1.ToString() + " : " + t.Item2.ToString());
+            }
+        }
     }
 }

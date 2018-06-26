@@ -53,12 +53,17 @@ namespace UnitTesting
             g.AddEdge("Sydney", "Rome", 400);
             g.AddEdge("Sydney", "Helsinki", 500);
 
-
-
             // Make a heavier but direct connection
             g.AddEdge("Sydney", "Adelaide", 300);
             // The following from earlier should still hold
+            Console.WriteLine("Here they come:");
             l = g.ShortestPathBetween("Sydney", "Adelaide");
+
+            /*
+            foreach (string i in l) {
+                Console.WriteLine(i);
+            }*/
+
             Assert.AreEqual("Sydney", l[0]);
             Assert.AreEqual("Melbourne", l[1]);
             Assert.AreEqual("Adelaide", l[2]);
