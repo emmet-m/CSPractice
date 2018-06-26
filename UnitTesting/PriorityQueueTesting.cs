@@ -48,6 +48,7 @@ namespace UnitTesting
                     continue;
                 }
                 int next = pq.Dequeue();
+                // The last number we saw should be less than the current one - as they come out in order
                 Assert.IsTrue(prev < next);
                 prev = next;
             }

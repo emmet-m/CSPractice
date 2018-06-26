@@ -43,7 +43,7 @@ namespace CSPracticeGraph
             }
 
             // This isn't really a good PriorityQueue because 
-            // insertion here is O(n) (I'm pretty sure), but it'll have to do for now :)
+            // insertion here is O(n), but it'll have to do for now :)
             this.elements.Insert(lo, Tuple.Create(elem,weight));
         }
 
