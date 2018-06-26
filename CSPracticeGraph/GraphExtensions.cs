@@ -102,10 +102,54 @@ namespace CSPracticeGraph
             return null;
         }
 
-        public bool ExistsCycleFrom(V v1)
+        /*
+         * Detects if there is a cycle from src.
+         * 
+         * Throws ArgumentException if src is not in graph.
+         */ 
+        public bool ExistsCycleFrom(V src)
         {
-            throw new NotImplementedException();
+            CheckVertexExists(src);
 
+            // Depth first seach
+            Stack<V> stack = new Stack<V>();
+            // To track where we came from
+            Dictionary<V,V> prevOf = new Dictionary<V,V>();
+            // So we don't repeat ourselves/infinite loop
+            HashSet<V> seen = new HashSet<V>();
+
+            // Initial pushing
+            foreach (V i in this.connections[src].Connections()) {
+                stack.Push(i);
+                prevOf[i] = src;
+            }
+
+            seen.Add(src);
+
+            while (stack.Count != 0) {
+                V curr = stack.Pop();
+                
+                foreach (V neighbour in this.connections[curr].Connections()) {
+                    // If we arrive at src from a node that we didn't just arrive at from src
+                    if (neighbour.Equals(src) && (!prevOf[curr].Equals(src)))
+                    {
+                        return true; // It means we found a cycle!
+                    }
+
+                    // No cycle found, keep going
+
+                    // ignore neighbours we've already visited
+                    if (!seen.Contains(curr))
+                    {
+                        stack.Push(neighbour);
+                        prevOf[neighbour] = curr;
+                    }
+                }
+                // Mark as seen and continue
+                seen.Add(curr);
+            }
+            
+            // Our loop terminated, we didn't find a cycle :(
             return false;
         }
 
