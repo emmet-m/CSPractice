@@ -109,6 +109,14 @@ namespace UnitTesting
             // this is a branch, so no cycle from D exists
             Assert.IsFalse(g.ExistsCycleFrom("D"));
 
+            // Let's connect D to B, making a cycle.
+            g.AddEdge("D", "B", 100);
+            // There are now multiple possible cycles from every node to every other
+            Assert.IsTrue(g.ExistsCycleFrom("A"));
+            Assert.IsTrue(g.ExistsCycleFrom("B"));
+            Assert.IsTrue(g.ExistsCycleFrom("C"));
+            Assert.IsTrue(g.ExistsCycleFrom("D"));
+
         }
     }
 }
