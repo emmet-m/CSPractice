@@ -6,7 +6,7 @@ namespace CSPracticeGraph
 {
     /*
      * Node class
-     * Stores a map of connections between a vertex.
+     * Stores a map of connections from a vertex.
      *
      * Using nodes as opposed to bundling pairs in a graph class allows easily to make
      * both an undirected and directed graph using the exact same code, as most graph 

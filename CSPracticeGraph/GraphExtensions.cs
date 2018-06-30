@@ -7,7 +7,15 @@ using System.Threading.Tasks;
 namespace CSPracticeGraph
 {
     /*
-     * Contains extension methods for the Graph class
+     * Contains extension methods for the Graph class.
+     * 
+     * I used int as the default second parameter here as I needed
+     * to be able to do arithmetic on weights for the Dijkstra to work.
+     * 
+     * C# doesn't have a 'Num' kind (like Haskell does), nor a kind of 
+     * arithmetic supporting types, so I just had to pick one!
+     * 
+     * TODO(?): Implement num class (like a C union)? 
      */
     public class GraphExtensions<V> : Graph<V, int>
         where V : IComparable, IEquatable<V>
