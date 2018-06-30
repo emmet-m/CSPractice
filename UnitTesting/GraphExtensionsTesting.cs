@@ -69,5 +69,46 @@ namespace UnitTesting
             Assert.AreEqual("Adelaide", l[2]);
             Assert.AreEqual(3, l.Count);
         }
+
+        [TestMethod]
+        public void TestCycleDetector()
+        {
+            GraphExtensions<String> g = new GraphExtensions<string>();
+
+            // We want to construct a triangle           
+            g.AddVertex("A");
+            g.AddVertex("B");
+            g.AddVertex("C");
+
+            g.AddEdge("A", "B", 100);
+            // At this point, we should definitely have no cycle!
+            Assert.IsFalse(g.ExistsCycleFrom("A"));
+            Assert.IsFalse(g.ExistsCycleFrom("B"));
+            Assert.IsFalse(g.ExistsCycleFrom("C"));
+
+            // Should still not have a cycle
+            g.AddEdge("B", "C", 100);
+            Assert.IsFalse(g.ExistsCycleFrom("A"));
+            Assert.IsFalse(g.ExistsCycleFrom("B"));
+            Assert.IsFalse(g.ExistsCycleFrom("C"));
+
+            // Let's fully connect our trinagle
+            g.AddEdge("C", "A", 100);
+            Assert.IsTrue(g.ExistsCycleFrom("A"));
+            Assert.IsTrue(g.ExistsCycleFrom("B"));
+            Assert.IsTrue(g.ExistsCycleFrom("C"));
+
+            // Let's add a branch from our triangle
+            g.AddVertex("D");
+            g.AddEdge("D", "A", 100);
+
+            // These should still be true
+            Assert.IsTrue(g.ExistsCycleFrom("A"));
+            Assert.IsTrue(g.ExistsCycleFrom("B"));
+            Assert.IsTrue(g.ExistsCycleFrom("C"));
+            // this is a branch, so no cycle from D exists
+            Assert.IsFalse(g.ExistsCycleFrom("D"));
+
+        }
     }
 }

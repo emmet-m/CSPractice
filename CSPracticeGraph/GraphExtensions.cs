@@ -139,7 +139,7 @@ namespace CSPracticeGraph
                     // No cycle found, keep going
 
                     // ignore neighbours we've already visited
-                    if (!seen.Contains(curr))
+                    if (!seen.Contains(neighbour))
                     {
                         stack.Push(neighbour);
                         prevOf[neighbour] = curr;
